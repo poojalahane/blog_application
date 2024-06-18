@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fontawesome -->
+    <script
+      src="https://kit.fontawesome.com/42a182743f.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Profile</title>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <!-- footer -->
+    <%-include('../partials/navbar.ejs') %>
+    <div class="profile-container">
+      <header style="background-image: url(<%=user?.coverImage%>)">
+        <div class="icons-container">
+          <p>
+            <a href="/api/v1/users/upload-cover-photo-form">
+              <!-- <i class="fa fa-upload fas upload-btn"></i> -->
+              <i class="fa fa-camera upload-btn fas"></i>
+            </a>
+          </p>
+
+          <p>
+            <a href="/api/v1/users/<%=user?._id%> ">
+              <i class="fa fa-edit fas"></i>
+              <!-- <i class="fas fa-edit"></i> -->
+            </a>
+          </p>
+
+          <p>
+            <a href="/api/v1/users/update-user-password ">
+              <i style="color: yellow" class="fa fa-lock fas"></i>
+              <!-- <i class="fa fa-lock"></i> -->
+              <!-- <i style="color: yellow" class="fa-solid fa-key fas"></i> -->
+            </a>
+          </p>
+        </div>
+        <!-- upload cover image icon -->
+      </header>
+
+      <!-- profile image -->
+      <div class="profile-img">
+        <img src="<%=user?.profileImage%> " alt="   Profile image" class="fas"/>
+        <!-- upload profile image icon -->
+        <a href="/api/v1/users/upload-profile-photo-form">
+          <i class="fa fa-camera fas upload-btn cc"></i>
+          <!-- <i class="fas fa-camera upload-btn"></i> -->
+        </a>
+      </div>
+      <!-- personal details -->
+      <div class="personal-container">
+        <div class="details-wrapper">
+          <div class="details">
+            <i class="fa fa-user fas"></i>
+            <p>Name: <%=user?.fullname%></p>
+          </div>
+          <div class="details">
+            <i class="fa fa-envelope fas"></i>
+            <p>Email: <%=user?.email%></p>
+          </div>
+          <!-- date joined -->
+          <div class="details">
+            <i class="fa fa-calendar fas"></i>
+            <p>Date Joined: <%=user?.createdAt.toLocaleDateString()%></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="latest-post-title">
+      <!-- Icon -->
+      <i class="fa fa-book-open fas"></i>
+      <h1>Latest Posts</h1>
+    </div>
+
+    <!-- content -->
+    <section class="container-flex">
+      <%if(user?.posts?.length <=0){ %>
+      <h1>You have no post</h1>
+      <%}else{%> <%user?.posts?.forEach((post)=>{%>
+      <article class="post-content">
+        <img src="<%=post?.image%> " alt="" class="post-image" />
+        <p class="post-info">
+          <span class="post-author">
+            <i class="fa fa-user fas"></i>
+            <a href="#"><%=post?.fullname%></a>
+          </span>
+          <span class="post-date">
+            <i class="far fa-calendar-alt fas"></i>
+            <time datetime="2020-01-01">
+              <%=post?.createdAt.toLocaleDateString()%>
+            </time>
+          </span>
+        </p>
+        <h1 class="post-title"><%=post?.title%></h1>
+        <p class="post-body"><%=tuncatePost(post?.description)%></p>
+        <!-- category -->
+        <div class="post-category">
+          <span>Category:<%=post?.category%> </span>
+        </div>
+        <a href="/" class="post-read-more">Continue Reading...</a>
+      </article>
+      <% })%> <%}%>
+    </section>
+    <!-- footer -->
+    <%-include('../partials/footer.ejs') %>
+  </body>
+</html>
